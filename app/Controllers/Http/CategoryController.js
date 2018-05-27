@@ -31,7 +31,9 @@ class CategoryController {
 
     response.header('Turbolink-Location', '/categories/' + category.slug)
 
-    return view.render('categories.category')
+    return view.render('categories.category', {
+      category
+    })
   }
 
   async edit ({ view, params: { id }, response }) {
