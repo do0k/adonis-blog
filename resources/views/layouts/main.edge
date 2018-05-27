@@ -19,9 +19,11 @@
 @!section('after-nav')
 
 @!section('before-main')
-  <main role="main">
+  <main id="main-content" role="main" class="container py-3">
 
-    @!section('main')
+   <div class="container my-3">
+       @!section('main')
+   </div>
 
   </main>
 @!section('after-main')
