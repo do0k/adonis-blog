@@ -24,14 +24,17 @@
     "@adonisjs/framework": "^5.0.5",
     "@adonisjs/ignitor": "^2.0.6",
     "@adonisjs/lucid": "^5.0.3",
+    "@adonisjs/lucid-slugify": "^1.0.2",
     "@adonisjs/session": "^1.0.23",
-    "@adonisjs/shield": "^1.0.6"
+    "@adonisjs/shield": "^1.0.6",
+    "mysql": "^2.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.1.1",
+    "feather-icons": "^4.7.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",
@@ -40,7 +43,9 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
-    "jquery-slim": "^3.0.0"
+    "jquery-slim": "^3.0.0",
+    "merge2": "^1.2.2",
+    "turbolinks": "^5.1.1"
   },
   "autoload": {
     "App": "./app"

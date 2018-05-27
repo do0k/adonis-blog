@@ -6,6 +6,8 @@ const uglify = require('gulp-uglify')
 const rename = require('gulp-rename')
 const sourcemaps = require('gulp-sourcemaps')
 const autoprefixer = require('gulp-autoprefixer')
+const babelPresetEnv = require('babel-preset-env')
+const merge = require('merge2')
 
 const paths = {
   nodePath: 'node_modules',
@@ -13,16 +15,39 @@ const paths = {
   jsPath: 'assets/js'
 }
 
-gulp.task('js', function () {
-  return gulp.src([
+gulp.task('move-icons', function () {
+  return gulp.src([paths.nodePath + '/feather-icons/dist/icons/*.svg'])
+    .pipe(gulp.dest('./public/icons/'))
+})
+
+gulp.task('vendor-js', function () {
+  const streamOne = gulp.src([
       paths.nodePath + '/jquery-slim/dist/jquery.slim.js',
-      paths.nodePath + '/bootstrap/dist/js/bootstrap.bundle.js'
+      paths.nodePath + '/bootstrap/dist/js/bootstrap.bundle.js',
+      paths.nodePath + '/feather-icons/dist/feather.js'
     ])
-    .pipe(sourcemaps.init())
-    .pipe(concat('vendor-scripts.js'))
-    .pipe(gulp.dest('public'))
     .pipe(uglify().on('error', function (err) {
       console.log(err)
+    }))
+  const streamTwo = gulp.src([
+    paths.nodePath + '/turbolinks/dist/turbolinks.js'
+  ])
+
+  return merge(streamOne, streamTwo)
+    .pipe(concat('vendor-scripts.min.js'))
+    .pipe(gulp.dest('public'))
+})
+
+gulp.task('custom-js', function () {
+  return gulp.src([paths.jsPath + '/**/*.js'])
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+      presets: ['babel-preset-env']
+    }))
+    .pipe(concat('custom-scripts.js'))
+    .pipe(gulp.dest('public'))
+    .pipe(uglify().on('error', function (err) {
+      console.log('Custom JS Error', err)
     }))
     .pipe(rename({
       suffix: '.min'
@@ -51,3 +76,11 @@ gulp.task('styles', function () {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public'))
 })
+
+
+gulp.task('watch', function () {
+  gulp.watch(paths.stylesPath + '**/*.scss', ['styles'])
+  gulp.watch(paths.jsPath + '**/*.js', ['custom-js'])
+})
+
+gulp.task('default', ['watch', 'vendor-js', 'styles', 'custom-js', 'move-icons'])

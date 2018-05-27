@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.js"],"names":["thing","thing2","console","log"],"mappings":"aAAA,IAAMA,MAAQ,CAAC,EAAG,EAAG,GAEfC,OAAS,WACXC,QAAQC,IAAI","file":"custom-scripts.js","sourcesContent":["const thing = [1, 2, 3]\r\n\r\nconst thing2 = () => {\r\n    console.log('loaded')\r\n}"]}
